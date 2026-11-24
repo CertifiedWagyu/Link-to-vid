@@ -170,13 +170,26 @@ function PolicyPage({ view, onBack }: { view: string; onBack: () => void }) {
         {view === 'contact' && (
           <>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Have a question, issue, or feedback? Reach out:
+              Have a question, issue, or feedback? Reach out through any of these channels:
             </p>
-            <div className="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-2">
-              <p className="text-sm"><strong>Email:</strong> <a className="text-violet-300 underline" href="mailto:support@example.com">support@example.com</a></p>
-              <p className="text-sm"><strong>GitHub:</strong> <a className="text-violet-300 underline" href="https://github.com/CertifiedWagyu/Link-to-vid" target="_blank" rel="noopener">CertifiedWagyu/Link-to-vid</a></p>
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-3">
+              <p className="text-sm">
+                <strong>GitHub Issues:</strong>{' '}
+                <a className="text-violet-300 underline" href="https://github.com/CertifiedWagyu/Link-to-vid/issues" target="_blank" rel="noopener">
+                  Open an issue on GitHub
+                </a>
+              </p>
+              <p className="text-sm">
+                <strong>Email:</strong>{' '}
+                <a className="text-violet-300 underline" href="mailto:you@example.com">
+                  you@example.com
+                </a>
+                <span className="text-slate-500 text-xs ml-2">(replace with your real email)</span>
+              </p>
             </div>
-            <p className="text-xs text-slate-500 mt-2">Replace the email above with your real contact email.</p>
+            <p className="text-xs text-slate-500 mt-2">
+              To use a contact form instead, sign up at formspree.io (free) and replace the links above with their form embed.
+            </p>
           </>
         )}
         {view === 'about' && (
