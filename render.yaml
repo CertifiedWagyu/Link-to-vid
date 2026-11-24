@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: video-downloader
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: TMP_ROOT
+        value: /tmp/vd-tmp
+      - key: MAX_DURATION_SEC
+        value: 3600
+      - key: MAX_FILE_BYTES
+        value: 4294967296
+    healthCheckPath: /api/health
