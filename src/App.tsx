@@ -181,10 +181,9 @@ function PolicyPage({ view, onBack }: { view: string; onBack: () => void }) {
               </p>
               <p className="text-sm">
                 <strong>Email:</strong>{' '}
-                <a className="text-violet-300 underline" href="mailto:you@example.com">
-                  you@example.com
+                <a className="text-violet-300 underline" href="mailto:videograbsupport@gmail.com">
+                  videograbsupport@gmail.com
                 </a>
-                <span className="text-slate-500 text-xs ml-2">(replace with your real email)</span>
               </p>
             </div>
             <p className="text-xs text-slate-500 mt-2">
