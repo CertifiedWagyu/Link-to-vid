@@ -92,6 +92,110 @@ function PlatformLogo({ name }: { name: string }) {
   }
 }
 
+function PolicyPage({ view, onBack }: { view: string; onBack: () => void }) {
+  const titles: Record<string, string> = {
+    privacy: 'Privacy Policy',
+    terms: 'Terms of Service',
+    contact: 'Contact Us',
+    about: 'About VideoGrab',
+  };
+  return (
+    <section className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+      <button onClick={onBack} className="mb-6 text-sm text-slate-400 hover:text-white transition">
+        ← Back to home
+      </button>
+      <div className="rounded-3xl bg-white/[0.04] border border-white/10 p-7 space-y-4">
+        <h1 className="text-3xl font-bold">{titles[view]}</h1>
+        {view === 'privacy' && (
+          <>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              <strong>Effective date:</strong> {new Date().getFullYear()}
+            </p>
+            <h2 className="text-xl font-semibold mt-4">1. Information We Collect</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              VideoGrab processes video URLs you submit to extract downloadable media. We do not store your
+              downloaded videos. Temporary files are created on our server during processing and deleted
+              automatically after download or after a short retention period. We may collect basic usage
+              data such as IP address, browser type, and request timestamps for security and rate-limiting.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">2. Cookies &amp; Advertising</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              We use third-party advertising networks (such as Google AdSense) which may use cookies to
+              serve ads based on your prior visits to this and other websites. You can opt out of
+              personalized advertising by visiting <a className="text-violet-300 underline" href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ad Settings</a>.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">3. Third-Party Services</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Our service relies on yt-dlp and FFmpeg for media processing. Downloaded content is subject
+              to the terms of the original platforms (YouTube, TikTok, etc.).
+            </p>
+            <h2 className="text-xl font-semibold mt-4">4. Your Rights</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              You may request deletion of any data associated with your IP by contacting us. We do not
+              sell personal data to third parties.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">5. Contact</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              For privacy questions, contact us via the Contact page.
+            </p>
+          </>
+        )}
+        {view === 'terms' && (
+          <>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              By using VideoGrab, you agree to these terms.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">1. Acceptable Use</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              You may only download content you own, have permission to download, or are legally permitted
+              to download. You must respect platform terms of service and copyright. Do not use this
+              service to bypass DRM, authentication, or access restrictions.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">2. No Warranty</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              The service is provided "as is" without warranties. We are not liable for any damages arising
+              from use of the service.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">3. Fair Use</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Do not abuse the service with excessive automated requests. We reserve the right to block
+              or rate-limit users who violate this.
+            </p>
+            <h2 className="text-xl font-semibold mt-4">4. Changes</h2>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              We may update these terms at any time. Continued use constitutes acceptance.
+            </p>
+          </>
+        )}
+        {view === 'contact' && (
+          <>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Have a question, issue, or feedback? Reach out:
+            </p>
+            <div className="rounded-2xl bg-white/5 border border-white/10 p-5 space-y-2">
+              <p className="text-sm"><strong>Email:</strong> <a className="text-violet-300 underline" href="mailto:support@example.com">support@example.com</a></p>
+              <p className="text-sm"><strong>GitHub:</strong> <a className="text-violet-300 underline" href="https://github.com/CertifiedWagyu/Link-to-vid" target="_blank" rel="noopener">CertifiedWagyu/Link-to-vid</a></p>
+            </div>
+            <p className="text-xs text-slate-500 mt-2">Replace the email above with your real contact email.</p>
+          </>
+        )}
+        {view === 'about' && (
+          <>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              VideoGrab is a free tool that converts publicly available videos into MP3 or MP4 files.
+              Processing happens on our server using FFmpeg and yt-dlp. We do not store your downloads —
+              temporary files are deleted automatically after you download them.
+            </p>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Please only download content you have the right to use. Respect platform terms and copyright.
+            </p>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
 export default function App() {
   const [url, setUrl] = useState('');
   const [info, setInfo] = useState<Info | null>(null);
@@ -104,6 +208,7 @@ export default function App() {
   const [message, setMessage] = useState('');
   const [fileName, setFileName] = useState<string | null>(null);
   const [showAd, setShowAd] = useState(false);
+  const [view, setView] = useState<'home' | 'privacy' | 'terms' | 'contact' | 'about'>('home');
   const [adCountdown, setAdCountdown] = useState(10);
   const [adComplete, setAdComplete] = useState(false);
 
@@ -268,9 +373,9 @@ export default function App() {
             <span className="text-lg font-bold tracking-tight">VideoGrab</span>
           </div>
           <div className="hidden sm:flex items-center gap-6 text-sm text-slate-300">
-            <a href="#platforms" className="hover:text-white transition">Platforms</a>
-            <a href="#how" className="hover:text-white transition">How it works</a>
-            <a href="#about" className="hover:text-white transition">About</a>
+            <button onClick={() => { setView('home'); setTimeout(() => document.getElementById('platforms')?.scrollIntoView({ behavior: 'smooth' }), 50); }} className="hover:text-white transition">Platforms</button>
+            <button onClick={() => { setView('home'); setTimeout(() => document.getElementById('how')?.scrollIntoView({ behavior: 'smooth' }), 50); }} className="hover:text-white transition">How it works</button>
+            <button onClick={() => setView('about')} className="hover:text-white transition">About</button>
           </div>
           <a href="#converter" className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-sm font-medium transition">
             Get started
@@ -279,6 +384,10 @@ export default function App() {
       </header>
 
       <main className="relative z-10">
+        {view !== 'home' ? (
+          <PolicyPage view={view} onBack={() => setView('home')} />
+        ) : (
+          <>
         {/* Hero */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-10 text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs text-violet-300 mb-6">
@@ -497,6 +606,8 @@ export default function App() {
             </p>
           </div>
         </section>
+          </>
+        )}
       </main>
 
       {/* Footer */}
@@ -504,9 +615,10 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-500">
           <div>© {new Date().getFullYear()} VideoGrab. All rights reserved.</div>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-slate-300 transition">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-300 transition">Terms of Service</a>
-            <a href="#about" className="hover:text-slate-300 transition">About</a>
+            <button onClick={() => setView('privacy')} className="hover:text-slate-300 transition">Privacy Policy</button>
+            <button onClick={() => setView('terms')} className="hover:text-slate-300 transition">Terms of Service</button>
+            <button onClick={() => setView('contact')} className="hover:text-slate-300 transition">Contact</button>
+            <button onClick={() => setView('about')} className="hover:text-slate-300 transition">About</button>
           </div>
         </div>
       </footer>
