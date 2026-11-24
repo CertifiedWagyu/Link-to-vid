@@ -9,10 +9,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
 COPY . .
-RUN npm run build
+RUN npm run build && npm prune --production
 
 ENV NODE_ENV=production
 ENV PORT=10000
