@@ -56,7 +56,10 @@ export function runYtDlp(args, { onProgress, onStdout, signal } = {}) {
 }
 
 export async function fetchInfo(url) {
-  const { stdout } = await runYtDlp(['--dump-single-json', '--no-playlist', '--no-warnings', url]);
+  const cookieArgs = [];
+  const p = process.env.COOKIES_FILE;
+  if (p) cookieArgs.push('--cookies', p);
+  const { stdout } = await runYtDlp(['--dump-single-json', '--no-playlist', '--no-warnings', ...cookieArgs, url]);
   let data;
   try { data = JSON.parse(stdout); } catch (e) { throw new Error('Could not parse video info'); }
   return data;

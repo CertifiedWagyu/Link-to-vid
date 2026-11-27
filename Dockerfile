@@ -18,4 +18,4 @@ ENV NODE_ENV=production
 ENV PORT=10000
 EXPOSE 10000
 
-CMD ["npm", "start"]
+CMD ["sh", "-c", "pip3 install --break-system-packages --no-cache-dir -U yt-dlp 2>/dev/null; npm start"]

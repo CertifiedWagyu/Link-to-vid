@@ -99,6 +99,12 @@ function ffmpegArgs() {
   return args;
 }
 
+function cookieArgs() {
+  const p = process.env.COOKIES_FILE;
+  if (p && fs.existsSync(p)) return ['--cookies', p];
+  return [];
+}
+
 function deriveFormats(info) {
   const formats = Array.isArray(info.formats) ? info.formats : [];
   const videoFormats = formats.filter((f) => f.vcodec && f.vcodec !== 'none');
@@ -272,7 +278,7 @@ async function processJob(job) {
 
   updateJob(job, { status: 'downloading', progress: 5, message: 'Starting download...' });
 
-  const args = [...ffmpegArgs(), '--no-playlist', '--no-warnings', '--newline', '-o', outTemplate];
+  const args = [...ffmpegArgs(), ...cookieArgs(), '--no-playlist', '--no-warnings', '--newline', '-o', outTemplate];
 
   if (format === 'mp3') {
     const kbps = String(quality || '192').replace(/[^0-9]/g, '') || '192';
